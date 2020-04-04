@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import PropTypes from "prop-types";
-import { Radio, Button} from 'antd';
+import { Checkbox, Button} from 'antd';
+import Context from '../context'
 
 
 const styles = {
@@ -13,23 +14,26 @@ const styles = {
         borderRadius: '4px',
         marginBottom: '.5rem',
     },
-    input: {
-        marginRight: '.5rem',
-    }
 }
 
 function TodoItem({todo, index, onChange}) {
+    const {removeTodo} = useContext(Context)
+    console.log(todo.completed)
+    const classes = []
+
+    if(todo.completed){
+        classes.push('done')
+    }
     return (
     <li style={styles.li}>
-        <span>
-            <Radio />
-            <input type="checkbox" style={styles.input} onChange={() => console.log(todo.id)}/>
+        <span className={classes.join(' ')}>
+            <Checkbox checked={todo.completed} onChange={() => onChange(todo.id)}/>
+            &nbsp;
             <strong>{index +1}</strong>
             &nbsp;
             {todo.title}
         </span>
-            <button className="rm">&times;</button>
-            <Button type="primary">Primary</Button>
+            <Button onClick={removeTodo.bind(null, todo.id)} className="rm" type="primary" size='small'>&times;</Button>
         </li>
     )
 }
@@ -37,6 +41,7 @@ function TodoItem({todo, index, onChange}) {
 TodoItem.propTypes = {
     todo: PropTypes.object.isRequired,
     index: PropTypes.number,
+    onChange: PropTypes.func.isRequired
 }
 
 export default TodoItem
