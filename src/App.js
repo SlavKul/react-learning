@@ -1,21 +1,23 @@
 import React from 'react';
-import TodoList from './Todo/TodoList'
+import faker from 'faker';
+import CommentDetail from './Comments/CommentDetail';
+import ApprovalCard from './Comments/ApprovalCard';
 
-function App() {
-  const todos = [
-    {id: 1, completed: false, title: 'First'},
-    {id: 2, completed: false, title: 'Second'},
-    {id: 3, completed: true, title: 'Third'},
-  ]
 
+const App = () => {
   return (
-    <div className="wrapper">
-      <h1>Learning react programming</h1>
-
-      <TodoList todos={todos}/>
+    <div className="ui containter comments">
+      <ApprovalCard>
+        <CommentDetail author="Sam" time="Today at 0:00AM" avatar={faker.image.avatar()} text="Good one!"/>
+      </ApprovalCard>
+      <ApprovalCard>
+        <CommentDetail author="Alex" time="Yesterday at 0:00AM" avatar={faker.image.avatar()} text="Boriiiing"/>
+      </ApprovalCard>
+      <ApprovalCard>
+        <CommentDetail author="Jane" time="Today at 5:00AM" avatar={faker.image.avatar()} text="Agreed with you"/>
+      </ApprovalCard>
     </div>
-
-  );
+  )
 }
 
 export default App;
